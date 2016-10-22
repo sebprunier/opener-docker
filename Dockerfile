@@ -28,7 +28,7 @@ RUN \
 
 # INSTALL TREE TAGGER 
 RUN apk add --no-cache curl
-RUN curl -L http://xrl.us/installperlnix | bash
+RUN apk add --update perl && rm -rf /var/cache/apk/*
 COPY ./tree-tagger /root/tree-tagger
 RUN cd /root/tree-tagger && \
   ./install-tagger.sh 
