@@ -33,7 +33,15 @@ COPY ./tree-tagger /root/tree-tagger
 RUN cd /root/tree-tagger && \
   ./install-tagger.sh 
 
-RUN ls -l /root/tree-tagger/cmd/
+RUN echo "Renaming from tree-tagger-<LANG> to tree-tagger-<LANG>-utf8" && \
+  mv /root/tree-tagger/cmd/tree-tagger-english /root/tree-tagger/cmd/tree-tagger-english-utf8 && \
+  mv /root/tree-tagger/cmd/tree-tagger-dutch /root/tree-tagger/cmd/tree-tagger-dutch-utf8 && \
+  mv /root/tree-tagger/cmd/tree-tagger-german /root/tree-tagger/cmd/tree-tagger-german-utf8 && \
+  mv /root/tree-tagger/cmd/tree-tagger-french /root/tree-tagger/cmd/tree-tagger-french-utf8 && \
+  mv /root/tree-tagger/cmd/tree-tagger-italian /root/tree-tagger/cmd/tree-tagger-italian-utf8 && \
+  mv /root/tree-tagger/cmd/tree-tagger-spanish /root/tree-tagger/cmd/tree-tagger-spanish-utf8 && \
+  ls -l /root/tree-tagger/cmd/
+
 
 ENV PATH /root/tree-tagger/bin:$PATH
 ENV PATH /root/tree-tagger/cmd:$PATH
