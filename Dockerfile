@@ -33,8 +33,6 @@ COPY ./tree-tagger /root/tree-tagger
 RUN cd /root/tree-tagger && \
   ./install-tagger.sh 
 
-RUN ls -l /root/tree-tagger/cmd
-
 ENV PATH /root/tree-tagger/bin:$PATH
 ENV PATH /root/tree-tagger/cmd:$PATH
 
