@@ -27,7 +27,7 @@ RUN \
   gem install opener-scorer
 
 # INSTALL TREE TAGGER 
-CP ./tree-tagger /root/tree-tagger
+COPY ./tree-tagger /root/tree-tagger
 RUN cd /root/tree-tagger && \
   ./install-tagger.sh && \
   echo "Does Treee Tagger Work?" && \
