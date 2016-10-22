@@ -1,7 +1,11 @@
-FROM jruby:1.7.21-jdk
-MAINTAINER Sébastien Prunier <sebastien.prunier@gmail.com>
+FROM jruby:9-alpine
+MAINTAINER Giovanni Gaglione <giovanni@wonderflow.co.co>
 
-RUN apt-get update && apt-get install -y gcc g++ make libarchive-dev python2.7 python-pip --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache   gcc g++ make libarchive-dev python py-pip 
+RUN apk add --no-cache   libxml2-dev libxslt-dev python-dev
+RUN rm -rf /var/lib/apt/lists/*
+
+RUN pip install lxml
 
 RUN \
   gem install opener-language-identifier && \
