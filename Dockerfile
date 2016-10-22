@@ -1,7 +1,13 @@
-FROM jruby:1.7.21-jdk
-MAINTAINER Sébastien Prunier <sebastien.prunier@gmail.com>
+FROM jruby:9-alpine
+MAINTAINER Giovanni Gaglione <giovanni@wonderflow.co.co>
 
-RUN apt-get update && apt-get install -y gcc g++ make libarchive-dev python2.7 python-pip --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache   gcc g++ make libarchive-dev python py-pip 
+RUN apk add --no-cache   libxml2-dev libxslt-dev python-dev
+RUN rm -rf /var/lib/apt/lists/*
+
+RUN pip install lxml
+
+
 
 RUN \
   gem install opener-language-identifier && \
@@ -19,5 +25,30 @@ RUN \
   gem install opener-kaf2json && \
   gem install opener-outlet && \
   gem install opener-scorer
+
+# INSTALL TREE TAGGER 
+RUN apk add --no-cache curl
+RUN apk add --update perl && rm -rf /var/cache/apk/*
+COPY ./tree-tagger /root/tree-tagger
+RUN cd /root/tree-tagger && \
+  ./install-tagger.sh 
+
+RUN echo "Renaming from tree-tagger-<LANG> to tree-tagger-<LANG>-utf8" && \
+  mv /root/tree-tagger/cmd/tree-tagger-english /root/tree-tagger/cmd/tree-tagger-english-utf8 && \
+  mv /root/tree-tagger/cmd/tree-tagger-dutch /root/tree-tagger/cmd/tree-tagger-dutch-utf8 && \
+  mv /root/tree-tagger/cmd/tree-tagger-german /root/tree-tagger/cmd/tree-tagger-german-utf8 && \
+  mv /root/tree-tagger/cmd/tree-tagger-french /root/tree-tagger/cmd/tree-tagger-french-utf8 && \
+  mv /root/tree-tagger/cmd/tree-tagger-italian /root/tree-tagger/cmd/tree-tagger-italian-utf8 && \
+  mv /root/tree-tagger/cmd/tree-tagger-spanish /root/tree-tagger/cmd/tree-tagger-spanish-utf8 && \
+  ls -l /root/tree-tagger/cmd/
+
+
+ENV PATH /root/tree-tagger/bin:$PATH
+ENV PATH /root/tree-tagger/cmd:$PATH
+ENV TREE_TAGGER_PATH=/root/tree-tagger
+
+RUN  echo "Does Treee Tagger Work?" && \
+  echo 'Hello world!' | tree-tagger-english-utf8 
+
 
 CMD ["/bin/bash"]
