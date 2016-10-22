@@ -35,7 +35,7 @@ RUN cd /root/tree-tagger && \
 
 ENV PATH /root/tree-tagger/bin:$PATH
 ENV PATH /root/tree-tagger/cmd:$PATH
-ENV TREE_TAGGER_PATH=/root/tree-tagger/
+ENV TREE_TAGGER_PATH=/root/tree-tagger
 
 RUN  echo "Does Treee Tagger Work?" && \
   echo 'Hello world!' | tree-tagger-english 
