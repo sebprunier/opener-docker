@@ -27,6 +27,7 @@ RUN \
   gem install opener-scorer
 
 # INSTALL TREE TAGGER 
+RUN apk add --no-cache curl
 RUN curl -L http://xrl.us/installperlnix | bash
 COPY ./tree-tagger /root/tree-tagger
 RUN cd /root/tree-tagger && \
