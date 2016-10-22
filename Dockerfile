@@ -31,7 +31,7 @@ COPY ./tree-tagger /root/tree-tagger
 RUN cd /root/tree-tagger && \
   ./install-tagger.sh && \
   echo "Does Treee Tagger Work?" && \
-  echo 'Hello world!' | cmd/tree-tagger-english 
+  echo 'Hello world!' | tree-tagger-english 
 
 ENV PATH /root/tree-tagger/bin:$PATH
 ENV PATH /root/tree-tagger/cmd:$PATH
