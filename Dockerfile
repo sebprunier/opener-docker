@@ -29,11 +29,13 @@ RUN \
 # INSTALL TREE TAGGER 
 COPY ./tree-tagger /root/tree-tagger
 RUN cd /root/tree-tagger && \
-  ./install-tagger.sh && \
-  echo "Does Treee Tagger Work?" && \
-  echo 'Hello world!' | tree-tagger-english 
+  ./install-tagger.sh 
 
 ENV PATH /root/tree-tagger/bin:$PATH
 ENV PATH /root/tree-tagger/cmd:$PATH
+
+RUN  echo "Does Treee Tagger Work?" && \
+  echo 'Hello world!' | tree-tagger-english 
+
 
 CMD ["/bin/bash"]
