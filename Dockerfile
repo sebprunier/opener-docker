@@ -7,6 +7,8 @@ RUN rm -rf /var/lib/apt/lists/*
 
 RUN pip install lxml
 
+
+
 RUN \
   gem install opener-language-identifier && \
   gem install opener-tokenizer && \
@@ -23,5 +25,15 @@ RUN \
   gem install opener-kaf2json && \
   gem install opener-outlet && \
   gem install opener-scorer
+
+# INSTALL TREE TAGGER 
+CP ./tree-tagger /root/tree-tagger
+RUN cd /root/tree-tagger && \
+  ./install-tagger.sh && \
+  echo "Does Treee Tagger Work?" && \
+  echo 'Hello world!' | cmd/tree-tagger-english 
+
+ENV PATH /root/tree-tagger/bin:$PATH
+ENV PATH /root/tree-tagger/cmd:$PATH
 
 CMD ["/bin/bash"]
